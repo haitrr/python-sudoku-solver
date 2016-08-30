@@ -96,7 +96,6 @@ class SudokuSolver(Frame):
                             if not exist:
                                 self.squares[i][j].set_root(k)
                                 break
-                            exist = False
                             for l in range(9):
                                 if l != j:
                                     if self.squares[i][l].possibles[k] == 1:
@@ -111,7 +110,6 @@ class SudokuSolver(Frame):
 
                             m = int(i / 3)
                             n = int(j / 3)
-                            exist = False
                             for t in range(1, 4):
                                 r = (m + 1) * 3 - t
                                 for l in range(1, 4):

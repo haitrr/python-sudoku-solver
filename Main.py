@@ -106,8 +106,7 @@ class SudokuSolver(Frame):
                                 break
 
                     # Also in block
-                    # There are error somewhere blow
-
+                                
                             m = int(i / 3)
                             n = int(j / 3)
                             for t in range(1, 4):

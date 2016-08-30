@@ -75,8 +75,8 @@ class SudokuSolver(Frame):
                     m = int(i / 3)
                     n = int(j / 3)
                     for k in range(1, 4):
+                        r = (m + 1) * 3 - k
                         for l in range(1, 4):
-                            r = (m + 1) * 3 - k
                             c = (n + 1) * 3 - l
                             if r != i | c != j:
                                 self.squares[r][c].remove_possible(root)
@@ -108,13 +108,13 @@ class SudokuSolver(Frame):
 
                     # Also in block
                     # There are error somewhere blow
-                                
+
                             m = int(i / 3)
                             n = int(j / 3)
                             exist = False
                             for t in range(1, 4):
+                                r = (m + 1) * 3 - t
                                 for l in range(1, 4):
-                                    r = (m + 1) * 3 - t
                                     c = (n + 1) * 3 - l
                                     if r != i | c != j:
                                         if self.squares[r][c].possibles[k] == 1:

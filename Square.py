@@ -45,9 +45,11 @@ class Square(Button):
 
     # Get root of this square in case it is solved
     def get_root(self):
-        for i in range(9):
-            if self.possibles[i] == 1:
-                return i
+        if self.possibles_count == 1:
+            for i in range(9):
+                if self.possibles[i] == 1:
+                    return i
+        return -1
 
     # Remove a number from possible
     def remove_possible(self, x):

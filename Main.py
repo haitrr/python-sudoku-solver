@@ -78,7 +78,7 @@ class SudokuSolver(Frame):
                         r = (m + 1) * 3 - k
                         for l in range(1, 4):
                             c = (n + 1) * 3 - l
-                            if r != i | c != j:
+                            if (r != i) | (c != j):
                                 self.squares[r][c].remove_possible(root)
                 else:
                     # Unsolved squares
@@ -96,6 +96,8 @@ class SudokuSolver(Frame):
                             if not exist:
                                 self.squares[i][j].set_root(k)
                                 break
+
+                            exist = False
                             for l in range(9):
                                 if l != j:
                                     if self.squares[i][l].possibles[k] == 1:
@@ -106,14 +108,15 @@ class SudokuSolver(Frame):
                                 break
 
                     # Also in block
-                                
+
+                            exist = False
                             m = int(i / 3)
                             n = int(j / 3)
                             for t in range(1, 4):
                                 r = (m + 1) * 3 - t
                                 for l in range(1, 4):
                                     c = (n + 1) * 3 - l
-                                    if r != i | c != j:
+                                    if (r != i) | (c != j):
                                         if self.squares[r][c].possibles[k] == 1:
                                             exist = True
                                             break
@@ -122,6 +125,49 @@ class SudokuSolver(Frame):
                             if not exist:
                                 self.squares[i][j].set_root(k)
                                 break
+                    # If still can not solve
+
+                    # Do this
+                            possible_row = []
+                            possible_column = []
+                            for t in range(1, 4):
+                                r = (m + 1) * 3 - t
+                                for l in range(1, 4):
+                                    c = (n + 1) * 3 - l
+                                    if (r != i) | (c != j):
+                                        if self.squares[r][c].possibles[k] == 1:
+                                            possible_row.append(r)
+                                            possible_column.append(c)
+                            root_row = True
+                            for o in possible_row:
+                                if o != i:
+                                    root_row = False
+                                    break
+                            if root_row:
+                                for v in range(9):
+                                    not_possible = True
+                                    if v != j:
+                                        for o in possible_column:
+                                            if v == o:
+                                                not_possible = False
+                                                break
+                                        if not_possible:
+                                            self.squares[i][v].remove_possible(k)
+                            root_column = True
+                            for o in possible_column:
+                                if o != j:
+                                    root_column = False
+                                    break
+                            if root_column:
+                                for v in range(9):
+                                    not_possible = True
+                                    if v != i:
+                                        for o in possible_row:
+                                            if v == o:
+                                                not_possible = False
+                                                break
+                                        if not_possible:
+                                            self.squares[v][j].remove_possible(k)
 
     # Reset the game
     def reset(self):
